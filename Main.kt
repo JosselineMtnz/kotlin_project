@@ -1,4 +1,4 @@
-//Interraccion con el usuario 
+//Interaccion con el usuario 
 fun main() {
     val productosDisponibles = mutableListOf(
         Producto("Laptop", 800.0, 10),

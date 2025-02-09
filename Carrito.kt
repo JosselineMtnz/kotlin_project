@@ -2,7 +2,7 @@
 class Carrito {
     private val productosEnCarrito = mutableListOf<ProductoCarrito>()
 
-    //se agrega un producto
+    //Se agrega un producto
     fun agregarProducto(producto: Producto, cantidad: Int) {
         if (producto.cantidadDisponible >= cantidad) {
             producto.cantidadDisponible -= cantidad
@@ -14,7 +14,7 @@ class Carrito {
         }
     }
 
-    //elimina
+    //Elimina
     fun eliminarProducto(nombre: String) {
         val producto = productosEnCarrito.find { it.nombre == nombre }
         if (producto != null) {
@@ -26,7 +26,7 @@ class Carrito {
         }
     }
 
-    //muestra
+    //Muestra
     fun mostrarCarrito() {
         var total = 0.0
         println("\nCarrito de Compras:")
