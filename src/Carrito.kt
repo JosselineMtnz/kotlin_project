@@ -1,61 +1,57 @@
-//Clase para carrito de compras
 class Carrito {
-    private val productosEnCarrito = mutableListOf<ProductoCarrito>()
+    private val productosEnCarrito = mutableMapOf<String, Int>()
 
-    //Se agrega un producto
     fun agregarProducto(producto: Producto, cantidad: Int) {
-        if (producto.cantidadDisponible >= cantidad) {
-            producto.cantidadDisponible -= cantidad
-            val productoCarrito = ProductoCarrito(producto, cantidad)
-            productosEnCarrito.add(productoCarrito)
-            println("Producto agregado: ${productoCarrito.nombre} - Cantidad: $cantidad")
+        if (cantidad > producto.cantidadDisponible) {
+            println("No hay suficiente stock disponible. Máximo permitido: ${producto.cantidadDisponible}")
+            return
+        }
+
+        producto.cantidadDisponible -= cantidad
+        productosEnCarrito[producto.nombre] = productosEnCarrito.getOrDefault(producto.nombre, 0) + cantidad
+        println("Producto agregado al carrito: ${producto.nombre} (x$cantidad)")
+    }
+
+    fun eliminarProducto(nombreProducto: String): Boolean {
+        return if (productosEnCarrito.containsKey(nombreProducto)) {
+            productosEnCarrito.remove(nombreProducto)
+            println("Producto eliminado del carrito.")
+            true
         } else {
-            println("No hay suficiente cantidad de ${producto.nombre} en inventario.")
+            println("El producto '$nombreProducto' no está en el carrito.")
+            false
         }
     }
 
-    //Elimina
-    fun eliminarProducto(nombre: String) {
-        val producto = productosEnCarrito.find { it.nombre == nombre }
-        if (producto != null) {
-            productosEnCarrito.remove(producto)
-            producto.producto.cantidadDisponible += producto.cantidad
-            println("Producto eliminado: ${producto.nombre}")
-        } else {
-            println("Producto no encontrado en el carrito.")
-        }
-    }
-
-    //Muestra
     fun mostrarCarrito() {
-        var total = 0.0
-        println("\nCarrito de Compras:")
-        for (producto in productosEnCarrito) {
-            val precioTotal = producto.cantidad * producto.precio
-            total += precioTotal
-            println("${producto.nombre} - ${producto.cantidad} x ${producto.precio} = $precioTotal")
+        if (productosEnCarrito.isEmpty()) {
+            println("El carrito está vacío.")
+            return
         }
-        println("Total del carrito: $total")
+
+        println("\nCarrito de compras:")
+        productosEnCarrito.forEach { (nombre, cantidad) ->
+            println("$nombre - Cantidad: $cantidad")
+        }
     }
 
-    //Calcula el total
-    fun totalCarrito(): Double {
-        return productosEnCarrito.sumOf { it.precio * it.cantidad }
-    }
-
-    //Genera la factura
     fun generarFactura() {
-        val total = totalCarrito()
-        println("\nFactura:")
-        for (producto in productosEnCarrito) {
-            println("${producto.nombre} - ${producto.cantidad} x ${producto.precio} = ${producto.cantidad * producto.precio}")
+        if (productosEnCarrito.isEmpty()) {
+            println("No hay productos en el carrito para generar factura.")
+            return
         }
-        println("Total General: $total")
-    }
-}
 
-//Clase para representar un Producto en el Carrito
-data class ProductoCarrito(val producto: Producto, val cantidad: Int) {
-    val nombre get() = producto.nombre
-    val precio get() = producto.precio
+        println("\nFactura de compra:")
+        var total = 0.0
+        productosEnCarrito.forEach { (nombre, cantidad) ->
+            val precioUnitario = productosDisponibles.find { it.nombre.equals(nombre, ignoreCase = true) }?.precio ?: 0.0
+            val subtotal = precioUnitario * cantidad
+            total += subtotal
+            println("$nombre - Cantidad: $cantidad - Subtotal: $${"%.2f".format(subtotal)}")
+        }
+
+        println("Total a pagar: $${"%.2f".format(total)}")
+        productosEnCarrito.clear()
+        println("Gracias por su compra!")
+    }
 }
