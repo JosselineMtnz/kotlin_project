@@ -23,9 +23,20 @@ fun agregarAlCarrito(productos: List<Producto>, carrito: Carrito) {
 
     if (producto != null) {
         print("Ingrese la cantidad que desea agregar: ")
-        val cantidad = readLine()?.toIntOrNull() ?: -1
+        val cantidad = try {
+            readLine()?.toInt() ?: throw NumberFormatException()
+        } catch (e: NumberFormatException) {
+            println("Cantidad inválida. Ingrese un número válido.")
+            return
+        }
+
         if (cantidad <= 0) {
-            println("Cantidad inválida. Intenta de nuevo.")
+            println("La cantidad debe ser mayor a 0.")
+            return
+        }
+
+        if (cantidad > producto.cantidadDisponible) {
+            println("No hay suficiente stock. Máximo disponible: ${producto.cantidadDisponible}")
             return
         }
 

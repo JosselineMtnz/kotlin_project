@@ -1,8 +1,11 @@
 fun main() {
     val carrito = Carrito()
+    carrito.onProductoAgregado = { producto, cantidad ->
+        println("🛒 ¡Has agregado $cantidad de ${producto.nombre} al carrito!")
+    }
 
     while (true) {
-        println("\nBienvenido a la tienda en línea. Elige una opción:")
+        println("\nBienvenido a nuestra tienda en línea. Elige una opción:")
         println("1. Ver productos")
         println("2. Agregar al carrito")
         println("3. Eliminar del carrito")
@@ -18,7 +21,7 @@ fun main() {
             "4" -> carrito.mostrarCarrito()
             "5" -> {
                 carrito.generarFactura()
-                return
+                // return ---> Se elimina return para que el usuario pueda seguir comprando al finalizar una
             }
             "6" -> return
             else -> println("Opción no válida. Intenta de nuevo.")
