@@ -48,3 +48,5 @@ Esto es un proyecto realizado para la materia Desarrollo de Software para Móvil
 - Josseline Esmeralda Martínez Hernández - MH180422 [@JosselineMtnz](https://github.com/JosselineMtnz)
 
 -  José Figueroa Figueroa Aguilar - FA200209 [@fjose4210](https://github.com/fjose4210)
+
+- Carlos Adonis Rosales Jovel - RJ201339 [@AdonisRosales23](https://github.com/AdonisRosales23).
