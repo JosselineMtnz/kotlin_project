@@ -17,38 +17,56 @@ fun mostrarProductos(productos: List<Producto>) {
 }
 
 fun agregarAlCarrito(productos: List<Producto>, carrito: Carrito) {
-    println("\nIngrese el nombre del producto a agregar al carrito:")
-    val nombreProducto = readLine()?.trim()
-    val producto = productos.find { it.nombre.equals(nombreProducto, ignoreCase = true) }
+    if (productos.isEmpty()) {
+        println("No hay productos disponibles.")
+        return
+    }
 
-    if (producto != null) {
-        print("Ingrese la cantidad que desea agregar: ")
-        val cantidad = try {
-            readLine()?.toInt() ?: throw NumberFormatException()
-        } catch (e: NumberFormatException) {
-            println("Cantidad inválida. Ingrese un número válido.")
-            return
+    println("\nProductos disponibles:")
+    productos.forEach { println("- ${it.nombre} (Stock: ${it.cantidadDisponible})") }
+
+    while (true) {
+        println("\nIngrese el nombre del producto a agregar al carrito (o escriba 'salir' para finalizar):")
+        val nombreProducto = readLine()?.trim()
+
+        if (nombreProducto.equals("salir", ignoreCase = true)) {
+            println("Finalizando la adición de productos.")
+            break
         }
 
-        if (cantidad <= 0) {
-            println("La cantidad debe ser mayor a 0.")
-            return
-        }
+        val producto = productos.find { it.nombre.equals(nombreProducto, ignoreCase = true) }
 
-        if (cantidad > producto.cantidadDisponible) {
-            println("No hay suficiente stock. Máximo disponible: ${producto.cantidadDisponible}")
-            return
-        }
+        if (producto != null) {
+            print("Ingrese la cantidad que desea agregar: ")
+            val cantidad = try {
+                readLine()?.toInt() ?: throw NumberFormatException()
+            } catch (e: NumberFormatException) {
+                println("Cantidad inválida. Ingrese un número válido.")
+                continue
+            }
 
-        carrito.agregarProducto(producto, cantidad)
-    } else {
-        println("Producto no encontrado.")
+            if (cantidad <= 0) {
+                println("La cantidad debe ser mayor a 0.")
+                continue
+            }
+
+            if (cantidad > producto.cantidadDisponible) {
+                println("No hay suficiente stock. Máximo disponible: ${producto.cantidadDisponible}")
+                continue
+            }
+
+            carrito.agregarProducto(producto, cantidad)
+            println("$cantidad unidades de '${producto.nombre}' agregadas al carrito.")
+        } else {
+            println("Producto no encontrado.")
+        }
     }
 }
 
+
 fun eliminarDelCarrito(carrito: Carrito) {
     println("\nIngrese el nombre del producto a eliminar del carrito:")
-    val nombreProducto = readLine()?.trim() ?: ""
+    val nombreProducto = readLine()?.trim()?.lowercase() ?: ""
     if (nombreProducto.isEmpty()) {
         println("Nombre de producto inválido.")
         return

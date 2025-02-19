@@ -18,11 +18,15 @@ class Carrito {
     }
 
     fun eliminarProducto(nombreProducto: String): Boolean {
-        val cantidadEliminada = productosEnCarrito[nombreProducto] ?: 0
-        if (cantidadEliminada > 0) {
-            productosEnCarrito.remove(nombreProducto)
-            val producto = productosDisponibles.find { it.nombre.equals(nombreProducto, ignoreCase = true) }
+        val claveReal = productosEnCarrito.keys.find { it.equals(nombreProducto, ignoreCase = true) }
+
+        if (claveReal != null) {
+            val cantidadEliminada = productosEnCarrito[claveReal] ?: 0
+            productosEnCarrito.remove(claveReal)
+
+            val producto = productosDisponibles.find { it.nombre.equals(claveReal, ignoreCase = true) }
             producto?.cantidadDisponible = (producto?.cantidadDisponible ?: 0) + cantidadEliminada
+
             println("Producto eliminado del carrito. Se han devuelto $cantidadEliminada unidades al stock.")
             return true
         } else {
