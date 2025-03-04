@@ -50,3 +50,5 @@ Esto es un proyecto realizado para la materia Desarrollo de Software para Móvil
 -  José Figueroa Figueroa Aguilar - FA200209 [@fjose4210](https://github.com/fjose4210)
 
 - Carlos Adonis Rosales Jovel - RJ201339 [@AdonisRosales23](https://github.com/AdonisRosales23).
+
+- Edwin Walberto Palacios Mejia - PM140373 [@palacios23](https://github.com/palacios23)
