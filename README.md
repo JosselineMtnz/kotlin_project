@@ -42,6 +42,13 @@ Esto es un proyecto realizado para la materia Desarrollo de Software para Móvil
 ```
 3- ¡Listo! Puedes utilizar nuestro menú interactivo de la tienda en línea
 
+## Link a video
+
+- Link a video explicando el proyecto: https://udbedu-my.sharepoint.com/:v:/g/personal/mh180422_alumno_udb_edu_sv/ESv8wSSZq7tCobgCcOoX2BQB8Hgc166s711fxZdkh7cFbg?e=23lJjS&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
+
+
+
+
 
 ## Autores
 
